@@ -27,17 +27,16 @@ class InstaFollower:
         self.driver = webdriver.Chrome(options=chrome_options)
         self.wait = WebDriverWait(self.driver, 10)
 
-    # Avoid bot-like behaviour and try not to run your script too often.
     def login(self):
         url = "https://www.instagram.com/accounts/login/"
         self.driver.get(url)
         time.sleep(4.2)
 
-        # Check if the cookie warning is present on the page
+        # Check if the cookie warning is present
         decline_cookies_xpath = "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[2]"
         cookie_warning = self.driver.find_elements(By.XPATH, decline_cookies_xpath)
         if cookie_warning:
-            # Dismiss the cookie warning by clicking an element or button
+            # Dismiss the cookie warning 
             cookie_warning[0].click()
 
         username = self.driver.find_element(by=By.NAME, value="email")
@@ -113,4 +112,5 @@ class InstaFollower:
 bot = InstaFollower()
 bot.login()
 bot.find_followers()
+
 bot.follow()
